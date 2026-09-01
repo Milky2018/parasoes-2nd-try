@@ -1,0 +1,17 @@
+import {
+  "Milky2018/tic80",
+}
+
+supported_targets = "wasm"
+
+pkgtype(kind: "foreign_library")
+
+options(
+  link: {
+    "wasm": {
+      "import-memory": { "module": "env", "name": "memory" },
+      "memory-limits": { "min": 4, "max": 4 },
+      "heap-start-address": 98304,
+    },
+  },
+)

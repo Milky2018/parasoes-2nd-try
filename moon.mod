@@ -19,8 +19,14 @@ repository = ""
 
 license = "Apache-2.0"
 
-keywords = []
+keywords = ["game", "tic-80"]
 
 preferred_target = "wasm"
 
-description = ""
+supported_targets = "wasm"
+
+description = "Parasoes"
+
+import {
+  "Milky2018/tic80@0.1.0",
+}

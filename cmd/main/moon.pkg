@@ -1,5 +1,0 @@
-// import {
-//   "Milky2018/parasoes" @lib,
-// }
-
-pkgtype(kind: "executable")
