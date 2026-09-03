@@ -1,5 +1,7 @@
 import {
   "Milky2018/tic80",
+  "Milky2018/tic80/raw",
+  "moonbitlang/core/encoding/ascii",
 }
 
 supported_targets = "wasm"
