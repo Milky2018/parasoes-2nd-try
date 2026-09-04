@@ -1,7 +1,5 @@
 import {
-  "Milky2018/tic80",
-  "Milky2018/tic80/raw",
-  "moonbitlang/core/encoding/ascii",
+  "Milky2018/parasoes/game",
 }
 
 supported_targets = "wasm"
