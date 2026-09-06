@@ -17,5 +17,5 @@ supported_targets = "wasm"
 description = "Parasoes"
 
 import {
-  "Milky2018/tic80@0.1.0",
+  "Milky2018/tic80@0.2.1",
 }
