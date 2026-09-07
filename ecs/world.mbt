@@ -7,8 +7,8 @@ struct World {
 }
 
 ///|
-struct SystemInfo {
-  debug_name : String
+priv struct SystemInfo {
+  _debug_name : String
   system : System
 }
 
@@ -147,7 +147,7 @@ pub fn World::add_system(
 ) -> Unit {
   let factory = SystemFactory(self.archetypes)
   let system = system_maker(factory)
-  self.systems.push({ debug_name, system, })
+  self.systems.push({ _debug_name: debug_name, system, })
 }
 
 ///|

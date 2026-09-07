@@ -2,7 +2,7 @@
 struct Bitmask(UInt64) derive(Eq)
 
 ///|
-extend Bitmask with Eq::{equal, not_equal}
+pub extend Bitmask with Eq::{equal, not_equal}
 
 ///|
 pub fn Bitmask::mask(x : Int) -> Bitmask {

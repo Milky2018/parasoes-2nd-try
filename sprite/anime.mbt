@@ -1,7 +1,4 @@
 ///|
-struct SpriteAnimation(FixedArray[AnimeFrame])
-
-///|
 struct AnimeFrame {
   sprite_id : Int
   duration : Int
@@ -10,7 +7,7 @@ struct AnimeFrame {
   scale : Int
   width : Int
   height : Int
-}
+} derive(Debug)
 
 ///|
 pub fn AnimeFrame::AnimeFrame(
@@ -24,3 +21,6 @@ pub fn AnimeFrame::AnimeFrame(
 ) -> AnimeFrame {
   { sprite_id, duration, flip, rotate, scale, width, height, }
 }
+
+///|
+pub extend AnimeFrame with Debug::{to_repr}

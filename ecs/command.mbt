@@ -1,5 +1,5 @@
 ///|
-enum Command {
+priv enum Command {
   Spawn(&SpawnBundle)
   Despawn(Entity)
 }

@@ -1,6 +1,6 @@
 name = "Milky2018/parasoes"
 
-version = "0.1.0"
+version = "0.1.1"
 
 readme = "README.mbt.md"
 
@@ -8,7 +8,7 @@ repository = ""
 
 license = "MIT"
 
-keywords = ["game", "tic-80"]
+keywords = [ "game", "tic-80" ]
 
 preferred_target = "wasm"
 

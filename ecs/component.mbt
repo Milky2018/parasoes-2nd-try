@@ -1,7 +1,4 @@
 ///|
-const MAX_COMPONENTS : Int = 64
-
-///|
 priv struct Archetype {
   components : Bitmask // Bitmask of components present in this archetype
   entities : Array[Entity]
@@ -11,7 +8,7 @@ priv struct Archetype {
 ///|
 struct ComponentKey[T] {
   id : Int // Unique identifier for the component type
-  debug_name : String
+  _debug_name : String
   columns : Array[Array[T]?] // Data storage for each component type, indexed by archetype ID
   // columns[n] is None if the component type is not present in archetype n
 }
@@ -65,5 +62,5 @@ let next_component_id : Ref[Int] = Ref(0)
 pub fn[T] register_component(debug_name : String) -> ComponentKey[T] {
   let id = next_component_id.val
   next_component_id.val += 1
-  { id, debug_name, columns: Array::make(8, None), }
+  { id, _debug_name: debug_name, columns: Array::make(8, None), }
 }

@@ -13,7 +13,7 @@ pub impl Debug for Entity with fn to_repr(self) {
 pub extend Entity with Debug::{to_repr}
 
 ///|
-struct EntitySlot {
+priv struct EntitySlot {
   mut generation : UInt
   mut location : Location?
 }
