@@ -1,0 +1,65 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Milky2018/parasoes/ecs"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn[T] register_component(String) -> ComponentKey[T]
+
+// Errors
+
+// Types and methods
+type Bitmask derive(Eq)
+pub fn Bitmask::contains(Self, Int) -> Bool
+pub fn Bitmask::equal(Self, Self) -> Bool
+pub fn Bitmask::land(Self, Self) -> Self
+pub fn Bitmask::lor(Self, Self) -> Self
+pub fn Bitmask::lxor(Self, Self) -> Self
+pub fn Bitmask::mask(Int) -> Self
+pub fn Bitmask::not_equal(Self, Self) -> Bool
+pub impl BitAnd for Bitmask
+pub impl BitOr for Bitmask
+pub impl BitXOr for Bitmask
+
+type CommandEmitter
+pub fn CommandEmitter::despawn(Self, Entity) -> Unit
+pub fn CommandEmitter::spawn(Self, &SpawnBundle) -> Unit
+
+type ComponentEntry[T]
+pub fn[T] ComponentEntry::append(Self[T], Int) -> Unit
+pub fn[T] ComponentEntry::bitmask(Self[T]) -> Bitmask
+pub fn[T] ComponentEntry::prepare(Self[T], Int) -> (Int) -> Unit
+pub impl[T] SpawnBundle for ComponentEntry[T]
+
+type ComponentKey[T]
+pub fn[T] ComponentKey::ensure(Self[T], Int) -> Unit
+pub fn[T] ComponentKey::entry(Self[T], T) -> ComponentEntry[T]
+pub fn[T] ComponentKey::get_column(Self[T], Int) -> Array[T]
+
+type Entity
+pub fn Entity::to_repr(Self) -> @debug.Repr
+pub impl @debug.Debug for Entity
+
+type Query1[C1]
+pub fn[C1] Query1::each(Self[C1], (Entity, C1) -> Unit) -> Unit
+
+type SystemFactory
+pub fn[C1] SystemFactory::query1(Self, ComponentKey[C1]) -> Query1[C1]
+
+type World
+pub fn World::World() -> Self
+pub fn World::add_system(Self, String, (SystemFactory) -> (CommandEmitter) -> Unit) -> Unit
+pub fn World::despawn(Self, Entity) -> Unit
+pub fn World::entity_is_alive(Self, Entity) -> Bool
+pub fn[C] World::get_component(Self, Entity, ComponentKey[C]) -> C?
+pub fn World::reset(Self) -> Unit
+pub fn World::spawn(Self, &SpawnBundle) -> Entity
+pub fn World::step(Self) -> Unit
+
+// Type aliases
+
+// Traits
+trait SpawnBundle
+pub impl SpawnBundle for Array[&SpawnBundle]

@@ -1,0 +1,20 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Milky2018/parasoes/sprite"
+
+import {
+  "Milky2018/tic80",
+  "moonbitlang/core/debug",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+type AnimeFrame derive(@debug.Debug)
+pub fn AnimeFrame::AnimeFrame(Int, duration? : Int, flip? : @tic80.Flip, rotate? : @tic80.Rotation, scale? : Int, width? : Int, height? : Int) -> Self
+pub fn AnimeFrame::to_repr(Self) -> @debug.Repr
+
+// Type aliases
+
+// Traits
