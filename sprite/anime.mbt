@@ -15,10 +15,16 @@ pub fn AnimePlayer::AnimePlayer(
 
 ///|
 pub fn AnimePlayer::play_step(self : AnimePlayer, x : Int, y : Int) -> Unit {
+  let anime_len = Float::from_int(self.animation.length())
+  guard self.frame_offset >= 0 && self.frame_offset < anime_len else {
+    @tic80.abort_ascii(
+      b"Anime playing out of length \{anime_len}, frame offset is \{self.frame_offset}",
+    )
+  }
   let image = self.animation[self.frame_offset.to_int()]
   image.render(x, y)
   self.frame_offset += self.rate
-  if self.frame_offset.to_int() >= self.animation.length() {
-    self.frame_offset -= Float::from_int(self.animation.length())
+  if self.frame_offset >= anime_len {
+    self.frame_offset -= anime_len
   }
 }
