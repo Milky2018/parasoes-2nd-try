@@ -1,0 +1,19 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Milky2018/parasoes/position"
+
+import {
+  "Milky2018/parasoes/ecs",
+  "Milky2018/parasoes/math",
+}
+
+// Values
+pub let pos_ck : @ecs.ComponentKey[@math.Vec2]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+pub using @math {type Vec2 as Pos}
+
+// Traits

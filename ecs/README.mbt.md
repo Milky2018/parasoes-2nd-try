@@ -76,37 +76,43 @@ let query : Query2[C0, C1] = world.query2(c0, c1)
 
 Instantiate a world singleton:
 
-```mbt
+```mbt nocheck
+///|
 let world : World = World()
 ```
 
 Define your components:
 
-```mbt
+```mbt nocheck
+///|
 struct Pos {
-  mut x : Double 
-  mut y : Double 
+  mut x : Double
+  mut y : Double
 }
 
+///|
 let pos_ck : ComponentKey[Pos] = register_component("pos")
 
+///|
 struct Vel {
-  mut x : Double 
-  mut y : Double 
+  mut x : Double
+  mut y : Double
 }
 
+///|
 let vel_ck : ComponentKey[Vel] = register_component("vel")
 ```
 
 Define the move system:
 
-```mbt
+```mbt nocheck
+///|
 fn move_system(factory : SystemFactory) -> System {
   let query = factory.query2(pos_ck, vel_ck)
 
   fn(cmd) {
-    query.each(fn (_e, pos, vel) {
-      pos.x += vel.x 
+    query.each(fn(_e, pos, vel) {
+      pos.x += vel.x
       pos.y += vel.y
     })
   }
@@ -115,7 +121,8 @@ fn move_system(factory : SystemFactory) -> System {
 
 Register this system and add your entity in the `BOOT` function:
 
-```mbt
+```mbt nocheck
+///|
 #export_name("BOOT")
 pub fn boot() -> Unit {
   world.add_system("move", move_system)
@@ -123,12 +130,13 @@ pub fn boot() -> Unit {
 }
 ```
 
-Run `World::update` in the `TIC` function:
+Run `World::step` in the `TIC` function:
 
-```mbt 
+```mbt nocheck
+///|
 #export_name("TIC")
 pub fn tic() -> Unit {
-  world.update()
+  world.step()
 }
 ```
 

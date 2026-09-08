@@ -9,3 +9,8 @@ pub fn[T] register_resource(debug_name : String, init : T) -> ResourceKey[T] {
   component_registry.resource_names.add(debug_name)
   { debug_name, value: init, }
 }
+
+///|
+pub fn[T] ResourceKey::get_debug_name(self : ResourceKey[T]) -> String {
+  self.debug_name
+}

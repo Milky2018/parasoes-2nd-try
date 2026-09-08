@@ -17,22 +17,42 @@ struct ComponentKey[T] {
 }
 
 ///|
+pub fn[T] ComponentKey::entry(
+  self : ComponentKey[T],
+  value : T,
+) -> ComponentEntry {
+  {
+    bitmask: Bitmask::mask(self.id),
+    prepare: fn(archetype_id) {
+      self.ensure(archetype_id)
+      let column = self.get_column(archetype_id)
+      // As the type of the component is erased after invoking `prepare`, the 
+      // removing operation needs to be registered
+      fn(row) { swap_remove_row(column, row) }
+    },
+    append: fn(archetype_id) { self.get_column(archetype_id).push(value) },
+  }
+}
+
+///|
+fn[T] swap_remove_row(column : Array[T], row : Int) -> Unit {
+  let last = column.length() - 1
+  if row != last {
+    column.unsafe_set(row, column.unsafe_get(last))
+  }
+  column.unsafe_pop() |> ignore()
+}
+
+///|
 pub fn[T] ComponentKey::get_debug_name(self : ComponentKey[T]) -> String {
   self.debug_name
 }
 
 ///|
-struct ComponentEntry[T] {
-  key : ComponentKey[T]
-  value : T
-}
-
-///|
-pub fn[T] ComponentKey::entry(
-  self : ComponentKey[T],
-  value : T,
-) -> ComponentEntry[T] {
-  { key: self, value, }
+struct ComponentEntry {
+  bitmask : Bitmask
+  prepare : (Int) -> (Int) -> Unit
+  append : (Int) -> Unit
 }
 
 ///|

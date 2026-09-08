@@ -1,0 +1,37 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Milky2018/parasoes/sprite"
+
+import {
+  "Milky2018/parasoes/ecs",
+  "Milky2018/tic80",
+}
+
+// Values
+pub let sprite_ck : @ecs.ComponentKey[Sprite]
+
+pub fn sprite_system(@ecs.SystemFactory) -> (@ecs.CommandEmitter) -> Unit
+
+// Errors
+
+// Types and methods
+type AnimePlayer
+pub fn AnimePlayer::AnimePlayer(FixedArray[Image], rate? : Float) -> Self
+pub fn AnimePlayer::play_step(Self, Int, Int) -> Unit
+
+type Image
+pub fn Image::Image(Int, flip? : @tic80.Flip, rotate? : @tic80.Rotation, scale? : Int, width? : Int, height? : Int) -> Self
+pub fn Image::render(Self, Int, Int) -> Unit
+
+pub(all) struct Sprite {
+  zindex : Int
+  kind : SpriteKind
+}
+
+pub(all) enum SpriteKind {
+  AnimeSprite(AnimePlayer)
+  ImageSprite(Image)
+}
+
+// Type aliases
+
+// Traits

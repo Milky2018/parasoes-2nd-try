@@ -42,16 +42,27 @@ pub fn[C] World::get_component(
 }
 
 ///|
-/// Get or init the archetype of a bundle. Returns the archetype id
-fn World::get_archetype(self : World, bundle : &SpawnBundle) -> Int {
-  let mask = bundle.bitmask()
+/// Get or init the archetype of the component entries. Returns the archetype id
+fn World::get_archetype(self : World, entries : Array[ComponentEntry]) -> Int {
+  let mut mask = Bitmask(0)
+  for entry in entries {
+    guard (mask & entry.bitmask) == Bitmask(0) else {
+      @tic80.abort_ascii(b"Duplicate component in spawn entries")
+    }
+    mask = mask | entry.bitmask
+  }
   for id, archetype in self.archetypes {
     if archetype.components == mask.0 {
       return id
     }
   }
   let id = self.archetypes.length()
-  let remove_components = bundle.prepare(id)
+  let remove_operations = entries.map(entry => (entry.prepare)(id))
+  let remove_components = fn(row) {
+    for remove in remove_operations {
+      remove(row)
+    }
+  }
   let archetype = { components: mask, entities: [], remove_components, }
   self.archetypes.push(archetype)
   id
@@ -70,13 +81,15 @@ pub fn World::entity_is_alive(self : World, entity : Entity) -> Bool {
 }
 
 ///|
-pub fn World::spawn(self : World, bundle : &SpawnBundle) -> Entity {
-  let archetype_id = self.get_archetype(bundle)
+pub fn World::spawn(self : World, entries : Array[ComponentEntry]) -> Entity {
+  let archetype_id = self.get_archetype(entries)
   let archetype = self.archetypes[archetype_id]
   let row = archetype.entities.length()
   let entity = self.allocate_entity(archetype_id, row)
   archetype.entities.push(entity)
-  bundle.append(archetype_id)
+  for entry in entries {
+    (entry.append)(archetype_id)
+  }
   entity
 }
 
@@ -126,7 +139,7 @@ pub fn World::despawn(self : World, entity : Entity) -> Unit {
 fn World::execute_commands(self : World, commands : Array[Command]) -> Unit {
   for command in commands {
     match command {
-      Spawn(bundle) => self.spawn(bundle) |> ignore
+      Spawn(entries) => self.spawn(entries) |> ignore
       Despawn(e) => self.despawn(e)
     }
   }

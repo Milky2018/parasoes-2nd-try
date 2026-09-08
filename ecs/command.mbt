@@ -1,6 +1,6 @@
 ///|
 priv enum Command {
-  Spawn(&SpawnBundle)
+  Spawn(Array[ComponentEntry])
   Despawn(Entity)
 }
 
@@ -17,9 +17,9 @@ fn CommandEmitter::CommandEmitter() -> Self {
 ///|
 pub fn CommandEmitter::spawn(
   self : CommandEmitter,
-  bundle : &SpawnBundle,
+  entries : Array[ComponentEntry],
 ) -> Unit {
-  self.commands.push(Spawn(bundle))
+  self.commands.push(Spawn(entries))
 }
 
 ///|

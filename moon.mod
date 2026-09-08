@@ -8,7 +8,7 @@ repository = ""
 
 license = "MIT"
 
-keywords = ["game", "tic-80"]
+keywords = [ "game", "tic-80" ]
 
 preferred_target = "wasm"
 
