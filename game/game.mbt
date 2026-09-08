@@ -9,5 +9,9 @@ pub fn tic() -> Unit {
 ///|
 pub fn boot() -> Unit {
   world.add_system("sprite", @sprite.sprite_system)
-  // world.spawn([])
+  world.spawn([
+    @sprite.sprite_ck.entry(player_tank_sprite),
+    @position.pos_ck.entry(@position.Pos(@math.Vec2(0, 0))),
+  ])
+  |> ignore
 }

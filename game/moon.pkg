@@ -2,4 +2,6 @@ import {
   "Milky2018/tic80",
   "Milky2018/parasoes/ecs",
   "Milky2018/parasoes/sprite",
+  "Milky2018/parasoes/position",
+  "Milky2018/parasoes/math",
 }
