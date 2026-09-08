@@ -31,5 +31,6 @@ pub fn Image::render(self : Image, x : Int, y : Int) -> Unit {
     rotate=self.rotate,
     w=self.width,
     h=self.height,
+    transparent_colors=b"\x00", // The transparent color is always COLOR#0
   )
 }

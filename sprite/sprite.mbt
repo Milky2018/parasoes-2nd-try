@@ -20,6 +20,7 @@ pub fn sprite_system(factory : @ecs.SystemFactory) -> @ecs.System {
   let query = factory.query2(sprite_ck, @position.pos_ck)
   let sprites = []
   fn(_cmd) noraise {
+    @tic80.cls()
     query.each(fn(_e, sprite, pos) { sprites.push((sprite, pos)) })
     sprites.sort_by_key(e_spr => e_spr.0.zindex)
     for e_spr in sprites {
