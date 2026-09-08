@@ -1,8 +1,7 @@
 ///|
-#valtype
-pub struct Vec2 {
-  x : Float
-  y : Float
+pub(all) struct Vec2 {
+  mut x : Float
+  mut y : Float
 }
 
 ///|

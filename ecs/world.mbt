@@ -13,13 +13,6 @@ priv struct SystemInfo {
 }
 
 ///|
-pub fn World::reset(self : World) -> Unit {
-  self.slots.clear()
-  self.free_slots.clear()
-  self.archetypes.clear()
-}
-
-///|
 pub fn World::World() -> World {
   {
     slots: Array(capacity=512),

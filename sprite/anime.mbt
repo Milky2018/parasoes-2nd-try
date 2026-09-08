@@ -1,46 +1,24 @@
 ///|
-struct SpriteAnimation(FixedArray[AnimeFrame])
-
-///|
-struct AnimeFrame {
-  sprite_id : Int
-  duration : Int
-  flip : @tic80.Flip
-  rotate : @tic80.Rotation
-  scale : Int
-  width : Int
-  height : Int
-}
-
-///|
-pub fn AnimeFrame::AnimeFrame(
-  sprite_id : Int,
-  duration? : Int = 1,
-  flip? : @tic80.Flip = NoFlip,
-  rotate? : @tic80.Rotation = NoRotation,
-  scale? : Int = 1,
-  width? : Int = 1,
-  height? : Int = 1,
-) -> AnimeFrame {
-  { sprite_id, duration, flip, rotate, scale, width, height, }
-}
-
-///|
 struct AnimePlayer {
-  animation : SpriteAnimation
-  mut frame : Float
+  animation : FixedArray[Image]
+  mut frame_offset : Float
   rate : Float
 }
 
 ///|
-pub let anime_player_ck : @ecs.ComponentKey[AnimePlayer] = @ecs.register_component(
-  "anime_player",
-)
+pub fn AnimePlayer::AnimePlayer(
+  animation : FixedArray[Image],
+  rate? : Float = 1.0,
+) -> Self {
+  { animation, rate, frame_offset: 0, }
+}
 
 ///|
-pub fn anime_sprite_system(factory : @ecs.SystemFactory) -> @ecs.System {
-  let query = factory.query1(anime_player_ck)
-  fn(_cmd) {
-    // query.each(fn (_e, anime_player))
+pub fn AnimePlayer::play_step(self : AnimePlayer, x : Int, y : Int) -> Unit {
+  let image = self.animation[self.frame_offset.to_int()]
+  image.render(x, y)
+  self.frame_offset += self.rate
+  if self.frame_offset.to_int() >= self.animation.length() {
+    self.frame_offset -= Float::from_int(self.animation.length())
   }
 }

@@ -39,5 +39,5 @@ pub extend Bitmask with BitXOr::{lxor}
 
 ///|
 pub fn Bitmask::contains(self : Bitmask, x : Int) -> Bool {
-  (self.0 | (1 << x)) != 0
+  (self.0 & (1 << x)) != 0
 }
