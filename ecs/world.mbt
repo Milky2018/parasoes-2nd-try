@@ -7,7 +7,7 @@ struct World {
 }
 
 ///|
-struct SystemInfo {
+priv struct SystemInfo {
   debug_name : String
   system : System
 }

@@ -17,6 +17,11 @@ struct ComponentKey[T] {
 }
 
 ///|
+pub fn[T] ComponentKey::get_debug_name(self : ComponentKey[T]) -> String {
+  self.debug_name
+}
+
+///|
 struct ComponentEntry[T] {
   key : ComponentKey[T]
   value : T
@@ -59,11 +64,32 @@ pub fn[T] ComponentKey::get_column(
 }
 
 ///|
-let next_component_id : Ref[Int] = Ref(0)
+// let next_component_id : Ref[Int] = Ref(0)
+let component_registry : ComponentRegistry = {
+  next_component_id: 0,
+  registered_names: Set([]),
+}
+
+///|
+priv struct ComponentRegistry {
+  mut next_component_id : Int
+  registered_names : Set[String]
+}
 
 ///|
 pub fn[T] register_component(debug_name : String) -> ComponentKey[T] {
-  let id = next_component_id.val
-  next_component_id.val += 1
+  guard component_registry.next_component_id < MAX_COMPONENTS else {
+    @tic80.abort_ascii(
+      b"The number of components is exceeding \{MAX_COMPONENTS}",
+    )
+  }
+  guard !component_registry.registered_names.contains(debug_name) else {
+    @tic80.abort_ascii(
+      b"Two components are registered with the same debug_name: \{debug_name}",
+    )
+  }
+  component_registry.registered_names.add(debug_name)
+  let id = component_registry.next_component_id
+  component_registry.next_component_id += 1
   { id, debug_name, columns: Array::make(8, None), }
 }

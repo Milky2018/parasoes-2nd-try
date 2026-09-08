@@ -24,3 +24,23 @@ pub fn AnimeFrame::AnimeFrame(
 ) -> AnimeFrame {
   { sprite_id, duration, flip, rotate, scale, width, height, }
 }
+
+///|
+struct AnimePlayer {
+  animation : SpriteAnimation
+  mut frame : Float
+  rate : Float
+}
+
+///|
+pub let anime_player_ck : @ecs.ComponentKey[AnimePlayer] = @ecs.register_component(
+  "anime_player",
+)
+
+///|
+pub fn anime_sprite_system(factory : @ecs.SystemFactory) -> @ecs.System {
+  let query = factory.query1(anime_player_ck)
+  fn(_cmd) {
+    // query.each(fn (_e, anime_player))
+  }
+}
